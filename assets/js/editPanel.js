@@ -1,141 +1,81 @@
-// ✏️ Edit Panel — Hanya Bahasa Indonesia + Ekspor/Impor/Reset
-import { renderBaits } from "./subbab.js";
+// -*- coding: utf-8 -*-
+// ✏️ editPanel.js — Panel Edit Bait (Final v3.3)
+// ✅ Sinkron dengan renderBaits() dan localStorage
+
 import { showToast } from "./toast.js";
-import { setGlobals, getGlobals } from "./utils.js";
+import { getGlobals, setGlobals } from "./utils.js";
+import { renderBaits } from "./subbab.js";
 
 const editPanel = document.getElementById("edit-panel");
 const editIndo = document.getElementById("edit-indo");
-const saveEditBtn = document.getElementById("saveEditBtn");
-const cancelEditBtn = document.getElementById("cancelEditBtn");
+const saveEditBtn = document.getElementById("save-edit");
+const cancelEditBtn = document.getElementById("cancel-edit");
 
-const exportBtn = document.getElementById("exportEditsBtn");
-const importBtn = document.getElementById("importEditsBtn");
-const resetBtn  = document.getElementById("resetEditsBtn");
-
-// ===============================
+// =========================
 // 🔹 Buka Panel Edit
-// ===============================
+// =========================
 export function openEditPanel(baitId, indoText = "") {
   editIndo.value = indoText;
   setGlobals({ editingBait: { id: baitId, indo: indoText } });
 
-  editPanel.setAttribute("aria-hidden", "false");
-  editPanel.classList.add("show");
+  editPanel.classList.add("open");
+  editPanel.style.transform = "translate(-50%, -50%) scale(1)";
+  editPanel.style.opacity = "1";
 }
 
-// ===============================
+// =========================
 // 🔹 Tutup Panel Edit
-// ===============================
+// =========================
 export function closeEditPanel() {
-  editPanel.classList.remove("show");
-  editPanel.setAttribute("aria-hidden", "true");
-  setGlobals({ editingBait: null });
+  editPanel.classList.remove("open");
+  editPanel.style.transform = "translate(-50%, -50%) scale(0.9)";
+  editPanel.style.opacity = "0";
 }
 
-// ===============================
-// 🔹 Simpan Perubahan
-// ===============================
+// =========================
+// 🔹 Simpan Edit
+// =========================
 saveEditBtn?.addEventListener("click", () => {
-  const globals = getGlobals();
-  const editing = globals.editingBait;
-  if (!editing) return;
+  const { editingBait, baits, baitOffset } = getGlobals();
+  if (!editingBait) return showToast("⚠️ Tidak ada bait aktif untuk disimpan.");
 
   const newIndo = editIndo.value.trim();
-
-  const bait = globals.baits.find((b) => b.id === editing.id);
-  if (bait) {
-    bait.indo = newIndo;
-  }
+  if (!newIndo) return showToast("⚠️ Teks tidak boleh kosong.");
 
   const edits = JSON.parse(localStorage.getItem("baitEdits") || "{}");
-  edits[editing.id] = { indo: newIndo };
+  edits[editingBait.id] = newIndo;
   localStorage.setItem("baitEdits", JSON.stringify(edits));
 
-  renderBaits();
+  // 🔹 Update data global
+  const bait = baits.find((b) => b.id === editingBait.id);
+  if (bait) bait.indo = newIndo;
+
+  // 🔹 Update tampilan langsung (tanpa reload)
+  const el = document.querySelector(`.bait[data-id='${editingBait.id}'] .bait-indo`);
+  if (el) el.textContent = newIndo;
+
+  // 🔹 Render ulang (pastikan sinkron)
+  renderBaits(baits, baitOffset);
+
   closeEditPanel();
-  showToast("✅ Bait disimpan sementara (lokal)");
+  showToast("✅ Bait disimpan (lokal)");
 });
 
-// ===============================
-// 🔹 Batal Edit
-// ===============================
-cancelEditBtn?.addEventListener("click", closeEditPanel);
+// =========================
+// 🔹 Batalkan Edit
+// =========================
+cancelEditBtn?.addEventListener("click", () => {
+  closeEditPanel();
+  showToast("❌ Edit dibatalkan");
+});
 
-// ===============================
-// 🔹 Terapkan edit dari localStorage saat render
-// ===============================
+// =========================
+// 🔹 Terapkan Edit dari localStorage
+// =========================
 export function applySavedEdits(baits) {
   const edits = JSON.parse(localStorage.getItem("baitEdits") || "{}");
-  baits.forEach((b) => {
-    if (edits[b.id]) {
-      b.indo = edits[b.id].indo;
-    }
-  });
+  for (const [id, text] of Object.entries(edits)) {
+    const bait = baits.find((b) => b.id == id);
+    if (bait) bait.indo = text;
+  }
 }
-
-// ===============================
-// 📤 EKSPOR Editan ke JSON (dengan timestamp)
-// ===============================
-exportBtn?.addEventListener("click", () => {
-  const edits = JSON.parse(localStorage.getItem("baitEdits") || "{}");
-  if (!Object.keys(edits).length) {
-    showToast("⚠️ Tidak ada editan untuk diekspor");
-    return;
-  }
-
-  const now = new Date();
-  const pad = (n) => String(n).padStart(2, "0");
-  const timestamp = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}`;
-  const filename = `bait_edits_${timestamp}.json`;
-
-  const blob = new Blob([JSON.stringify(edits, null, 2)], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  a.click();
-  URL.revokeObjectURL(url);
-
-  showToast(`📦 Editan diekspor: ${filename}`);
-});
-
-// ===============================
-// 📥 IMPOR Editan dari JSON
-// ===============================
-importBtn?.addEventListener("click", () => {
-  const input = document.createElement("input");
-  input.type = "file";
-  input.accept = ".json";
-
-  input.onchange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      try {
-        const imported = JSON.parse(ev.target.result);
-        localStorage.setItem("baitEdits", JSON.stringify(imported));
-        showToast(`✅ Editan dari "${file.name}" berhasil diimpor`);
-        renderBaits();
-      } catch (err) {
-        console.error(err);
-        showToast("❌ Gagal memuat file editan");
-      }
-    };
-    reader.readAsText(file);
-  };
-
-  input.click();
-});
-
-// ===============================
-// 🔄 RESET Editan Lokal
-// ===============================
-resetBtn?.addEventListener("click", () => {
-  if (confirm("Yakin ingin menghapus semua editan lokal?")) {
-    localStorage.removeItem("baitEdits");
-    renderBaits();
-    showToast("♻️ Semua editan lokal dihapus");
-  }
-});
