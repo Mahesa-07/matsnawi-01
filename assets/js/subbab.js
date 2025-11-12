@@ -1,6 +1,7 @@
 // -*- coding: utf-8 -*-
-// 📖 subbab.js — Subbab Loader & Renderer (ESModule Final v3.3)
-// ⚙️ Sinkron dengan editPanel.js dan localStorage
+// 📖 subbab.js — Subbab Loader & Renderer (ESModule Final, v3.2)
+// ⚙️ Bahasa default: Indonesia | Toggle Inggris via tombol 🇬🇧
+// ✏️ Terhubung penuh dengan edit-panel, bookmark & deskripsi
 
 import { showToast } from "./toast.js";
 import {
@@ -38,6 +39,7 @@ export function addNextButtonIfEnd() {
       const subs = babNow.subbabs || [];
       const currentSubIndex = subs.findIndex((s) => s.file === currentSubbab);
 
+      // 🔸 Masih ada subbab berikutnya
       if (currentSubIndex < subs.length - 1) {
         const nextSub = subs[currentSubIndex + 1];
         await loadSubbab(nextSub.file, babNow.bab, currentSubIndex + 1, nextSub.title);
@@ -45,8 +47,9 @@ export function addNextButtonIfEnd() {
         return;
       }
 
+      // 🔸 Kalau tidak ada, lanjut ke bab berikutnya
       const nextBab = index.files[babNowIndex + 1];
-      if (nextBab && nextBab.subbabs?.length > 0) {
+      if (nextBab && nextBab.subbabs?.length) {
         const firstSub = nextBab.subbabs[0];
         await loadSubbab(firstSub.file, nextBab.bab, 0, firstSub.title);
         showToast(`📖 ${nextBab.title || "Bab berikutnya"} dimulai`);
@@ -64,13 +67,14 @@ export function addNextButtonIfEnd() {
 }
 
 // =========================
-// 🔹 Fungsi Memuat Subbab
+// 🔹 Fungsi memuat Subbab
 // =========================
 export async function loadSubbab(file, babIndex, subIndex, title) {
   if (!file) return;
-  console.log("🔍 Memuat subbab:", file, babIndex, subIndex, title);
 
+  console.log("🔍 Memuat subbab:", file, babIndex, subIndex, title);
   const { currentSubbab, cacheSubbabs } = getGlobals();
+
   if (currentSubbab === file) {
     showToast(`⚠️ ${title} sudah aktif`);
     return;
@@ -89,6 +93,7 @@ export async function loadSubbab(file, babIndex, subIndex, title) {
   }
 
   try {
+    // 🔹 Hitung offset global
     let offset = 0;
     const indexRes = await fetch("./assets/data/index.json");
     const index = await indexRes.json();
@@ -98,22 +103,19 @@ export async function loadSubbab(file, babIndex, subIndex, title) {
         for (const s of bab.subbabs) {
           const r = await fetch(s.file);
           const arr = await r.json();
-          offset += Array.isArray(arr)
-            ? arr.length
-            : (arr.baits?.length || 0);
+          offset += Array.isArray(arr) ? arr.length : (arr.baits?.length || 0);
         }
       } else if (bab.bab === babIndex) {
         for (let i = 0; i < subIndex; i++) {
           const r = await fetch(bab.subbabs[i].file);
           const arr = await r.json();
-          offset += Array.isArray(arr)
-            ? arr.length
-            : (arr.baits?.length || 0);
+          offset += Array.isArray(arr) ? arr.length : (arr.baits?.length || 0);
         }
         break;
       }
     }
 
+    // 🔹 Ambil data subbab
     const res = await fetch(file);
     const json = await res.json();
     const data = Array.isArray(json) ? json : json.baits || [];
@@ -125,10 +127,14 @@ export async function loadSubbab(file, babIndex, subIndex, title) {
       return;
     }
 
+    // 🔹 Terapkan hasil edit tersimpan
     applySavedEdits(data);
+
+    // Simpan cache & update global
     cacheSubbabs[file] = { data, offset };
     setGlobals({ baits: data, baitOffset: offset });
 
+    // 🔹 Render
     renderBaits(data, offset);
     showToast(`📖 ${title} dimuat`);
   } catch (err) {
@@ -138,7 +144,7 @@ export async function loadSubbab(file, babIndex, subIndex, title) {
 }
 
 // =========================
-// 🔹 Render Baits
+// 🔹 Render Bait
 // =========================
 export function renderBaits(baits, offset = 0) {
   const showTrans = getShowTranslation();
@@ -155,14 +161,15 @@ export function renderBaits(baits, offset = 0) {
         const baitNumber = offset + i + 1;
         const baitId = b.id || baitNumber;
         const isEdited = !!edits[baitId];
-
-        const textDisplay = showTrans
-          ? `<div class="bait-eng">${escapeHtml(b.inggris || "")}</div>`
-          : `<div class="bait-indo">${escapeHtml(b.indo || "")}</div>`;
-
         const editMark = isEdited
           ? `<span class="edit-indicator" title="Bait ini telah diedit">🔸</span>`
           : "";
+
+        const indo = escapeHtml(b.indo || "");
+        const eng = escapeHtml(b.inggris || "");
+        const textDisplay = showTrans
+          ? `<div class="bait-eng">${eng}</div>`
+          : `<div class="bait-indo">${indo}</div>`;
 
         return `
           <div class="bait" data-id="${baitId}" data-bait-index="${i}">
@@ -170,9 +177,7 @@ export function renderBaits(baits, offset = 0) {
             ${textDisplay}
             ${b.description ? `<p class="bait-desc hidden">${escapeHtml(b.description)}</p>` : ""}
             <div class="bait-footer">
-              <div class="bait-marker">
-                ﴾${baitNumber}﴿ ${editMark}
-              </div>
+              <div class="bait-marker">﴾${baitNumber}﴿ ${editMark}</div>
               <div class="bait-actions">
                 <button class="btn-desc" title="Lihat Deskripsi">
                   <svg width="20" height="20"><use href="#icon-open"></use></svg>
@@ -192,6 +197,7 @@ export function renderBaits(baits, offset = 0) {
     addBaitListeners();
     addNextButtonIfEnd();
 
+    // 🔹 Animasi halus
     requestAnimationFrame(() => {
       baitContainer.classList.add("bait-enter-active");
       setTimeout(() => baitContainer.classList.remove("bait-enter", "bait-enter-active"), 600);
