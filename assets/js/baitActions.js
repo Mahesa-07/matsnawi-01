@@ -38,7 +38,7 @@ export function addBaitListeners() {
     btnEdit?.addEventListener("click", () => {
       const indoText = bait.querySelector(".bait-indo")?.textContent.trim() || "";
       const engText = bait.querySelector(".bait-eng")?.textContent.trim() || "";
-      openEditPanel(baitId, engText, indoText);
+      openEditPanel(bait.Id, bait.indo);
     });
 
     // === Tombol Deskripsi ===
