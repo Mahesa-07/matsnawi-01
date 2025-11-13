@@ -1,20 +1,23 @@
 // -*- coding: utf-8 -*-
-// 📚 sidebar.js — Bab → Subbab → Bait Preview (Final Tanpa Handle)
+// 🌒 sidebar.js — Final Stabil + Fix Tombol Menu & Gesture Area Bawah-Kiri
 
 import { loadSubbab } from "./subbab.js";
 import { showToast } from "./toast.js";
 
+// =============================
+// 🔹 Ambil Elemen DOM
+// =============================
 const sidebar = document.getElementById("sidebar");
 const menuToggle = document.getElementById("menuToggle");
 const baitList = document.getElementById("baitList");
 
 // =============================
-// 🔹 Efek flash sidebar saat pertama kali load
+// 🔹 Efek Flash Awal
 // =============================
 function flashSidebar(duration = 800) {
+  if (!sidebar || !menuToggle) return;
   sidebar.classList.add("show");
   menuToggle.textContent = "✖";
-
   setTimeout(() => {
     sidebar.classList.remove("show");
     menuToggle.textContent = "☰";
@@ -22,11 +25,11 @@ function flashSidebar(duration = 800) {
 }
 
 // =============================
-// 🔹 Membangun Sidebar Utama
+// 🔹 Fungsi Build Sidebar
 // =============================
 export async function buildSidebar() {
   if (!baitList) {
-    console.warn("⚠️ Elemen #baitList tidak ditemukan di DOM.");
+    console.warn("⚠️ Elemen #baitList tidak ditemukan.");
     return;
   }
 
@@ -45,10 +48,8 @@ export async function buildSidebar() {
       const subbabList = document.createElement("ul");
       subbabList.className = "subbab-list hidden";
 
-      // 🔸 Loop setiap subbab
-      for (let subIndex = 0; subIndex < bab.subbabs.length; subIndex++) {
-        const sub = bab.subbabs[subIndex];
-
+      for (let i = 0; i < bab.subbabs.length; i++) {
+        const sub = bab.subbabs[i];
         const subItem = document.createElement("li");
         subItem.className = "subbab-item";
         subItem.innerHTML = `
@@ -63,19 +64,17 @@ export async function buildSidebar() {
         const subTitle = subItem.querySelector(".subbab-title");
         const baitSublist = subItem.querySelector(".bait-sublist");
 
-        // Klik sekali → tampilkan preview bait
         subTitle.addEventListener("click", async () => {
           const visible = !baitSublist.classList.contains("hidden");
-          document.querySelectorAll(".bait-sublist").forEach((l) => l.classList.add("hidden"));
+          document.querySelectorAll(".bait-sublist").forEach(l => l.classList.add("hidden"));
           if (!visible) {
-            await loadSubbabPreview(sub.file, baitSublist, bab, subIndex, sub);
+            await loadSubbabPreview(sub.file, baitSublist, bab, i, sub);
             baitSublist.classList.remove("hidden");
           } else baitSublist.classList.add("hidden");
         });
 
-        // Klik dua kali → langsung buka subbab
         subTitle.addEventListener("dblclick", () => {
-          loadSubbab(sub.file, bab.bab, subIndex, sub.title);
+          loadSubbab(sub.file, bab.bab, i, sub.title);
           closeSidebar();
         });
       }
@@ -83,7 +82,7 @@ export async function buildSidebar() {
       const babTitle = babItem.querySelector(".bab-title");
       babTitle.addEventListener("click", () => {
         const visible = !subbabList.classList.contains("hidden");
-        document.querySelectorAll(".subbab-list").forEach((l) => l.classList.add("hidden"));
+        document.querySelectorAll(".subbab-list").forEach(l => l.classList.add("hidden"));
         if (!visible) subbabList.classList.remove("hidden");
       });
 
@@ -91,12 +90,10 @@ export async function buildSidebar() {
       baitList.appendChild(babItem);
     }
 
-    // 🔹 Flash sidebar hanya sekali
     if (!window._sidebarFlashed) {
       window._sidebarFlashed = true;
-      flashSidebar(800);
+      flashSidebar();
     }
-
   } catch (err) {
     console.error("❌ buildSidebar error:", err);
     baitList.innerHTML = "<li>⚠️ Gagal memuat daftar Bab</li>";
@@ -105,7 +102,7 @@ export async function buildSidebar() {
 }
 
 // =============================
-// 🔹 Memuat Preview Bait per Subbab
+// 🔹 Fungsi Preview Bait
 // =============================
 async function loadSubbabPreview(file, subList, bab, subIndex, sub) {
   try {
@@ -115,7 +112,7 @@ async function loadSubbabPreview(file, subList, bab, subIndex, sub) {
 
     subList.innerHTML = data
       .map(
-        (b) => `
+        b => `
         <li class="bait-item" data-id="${b.id}">
           <span class="bait-number">${b.id}.</span>
           <span class="bait-text">${(b.indo || "").slice(0, 30)}...</span>
@@ -123,7 +120,7 @@ async function loadSubbabPreview(file, subList, bab, subIndex, sub) {
       )
       .join("");
 
-    subList.querySelectorAll(".bait-item").forEach((li) => {
+    subList.querySelectorAll(".bait-item").forEach(li => {
       li.addEventListener("click", async () => {
         await loadSubbab(sub.file, bab.bab, subIndex, sub.title);
         const id = Number(li.dataset.id);
@@ -143,51 +140,89 @@ async function loadSubbabPreview(file, subList, bab, subIndex, sub) {
 // =============================
 export function openSidebar() {
   sidebar.classList.add("show");
+  sidebar.style.transform = "translateX(0)";
+  sidebar.style.opacity = "1";
+  sidebar.style.pointerEvents = "auto";
   menuToggle.textContent = "✖";
 }
 export function closeSidebar() {
   sidebar.classList.remove("show");
+  sidebar.style.transform = "translateX(-105%)";
+  sidebar.style.opacity = "0";
+  sidebar.style.pointerEvents = "none";
   menuToggle.textContent = "☰";
+}
+export function toggleSidebar() {
+  sidebar.classList.contains("show") ? closeSidebar() : openSidebar();
 }
 
 // =============================
-// 🔹 Event Listener Global
+// 🔹 Inisialisasi Event + Gesture Area
 // =============================
+document.addEventListener("DOMContentLoaded", () => {
+  if (!menuToggle || !sidebar) return;
 
-// Tombol ☰
-menuToggle?.addEventListener("click", (e) => {
-  e.stopPropagation();
-  sidebar.classList.contains("show") ? closeSidebar() : openSidebar();
-});
+  // Klik tombol menu
+  menuToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleSidebar();
+  });
 
-// Klik luar → tutup
-document.addEventListener("click", (e) => {
-  if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) closeSidebar();
-});
+  // ESC → tutup
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && sidebar.classList.contains("show")) closeSidebar();
+  });
 
-// Tekan ESC → tutup
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && sidebar.classList.contains("show")) closeSidebar();
-});
-
-// 🔹 Gesture swipe dari tepi kiri
-let startX = 0;
-document.addEventListener("touchstart", (e) => {
-  startX = e.touches[0].clientX;
-});
-document.addEventListener("touchend", (e) => {
-  const endX = e.changedTouches[0].clientX;
-  const diff = endX - startX;
-  if (startX < 80 && diff > 60) openSidebar();
-  if (diff < -80 && sidebar.classList.contains("show")) closeSidebar();
-});
-
-// 🔹 Toggle subbab (expand/collapse)
-document.addEventListener("click", (e) => {
-  if (e.target.classList.contains("subbab-title")) {
-    const sublist = e.target.nextElementSibling;
-    if (sublist && sublist.classList.contains("bait-sublist")) {
-      sublist.classList.toggle("show");
+  // Klik luar sidebar → tutup
+  document.addEventListener("click", e => {
+    const target = e.target;
+    if (!sidebar.contains(target) && !menuToggle.contains(target)) {
+      closeSidebar();
     }
-  }
+  });
+
+  // ==========================================
+  // 🟢 Gesture Area Transparan Kiri-Bawah
+  // ==========================================
+  const gestureArea = document.createElement("div");
+  gestureArea.id = "gesture-area";
+  document.body.appendChild(gestureArea);
+
+  Object.assign(gestureArea.style, {
+    position: "fixed",
+    left: "0",
+    bottom: "0",
+    width: "40px",
+    height: "60%",
+    zIndex: "99",
+    background: "transparent",
+    touchAction: "none",
+  });
+
+  let startX = 0;
+  let currentX = 0;
+  let touching = false;
+
+  gestureArea.addEventListener("touchstart", (e) => {
+    if (e.touches.length !== 1) return;
+    touching = true;
+    startX = e.touches[0].clientX;
+  });
+
+  gestureArea.addEventListener("touchmove", (e) => {
+    if (!touching) return;
+    currentX = e.touches[0].clientX;
+    const translateX = Math.min(0, currentX - 270);
+    sidebar.style.transform = `translateX(${translateX}px)`;
+    sidebar.style.opacity = Math.min(1, (currentX / 270) * 1.2);
+  });
+
+  gestureArea.addEventListener("touchend", () => {
+    if (!touching) return;
+    touching = false;
+    if (currentX > 90) openSidebar();
+    else closeSidebar();
+  });
+
+  showToast?.("Gesture area kiri bawah aktif 🌙");
 });
