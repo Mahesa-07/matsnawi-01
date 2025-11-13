@@ -202,3 +202,26 @@
   font: inherit;
 }
 .icon-btn svg { display: block; }
+/* Tambahkan di bawah .sidebar.show yang lama atau ganti isinya */
+.sidebar.show {
+  transform: translateX(0);
+  box-shadow: 2px 0 16px rgba(0, 0, 0, 0.35);
+}
+/* ✅ Fix Sidebar agar tampil stabil dan penuh */
+#sidebar {
+  transform: translateX(-100%);
+  opacity: 0;
+  transition:
+    transform 0.6s cubic-bezier(0.25, 1, 0.3, 1),
+    opacity 0.3s ease;
+  will-change: transform, opacity;
+}
+
+/* Saat aktif (tombol diklik) */
+#sidebar.show {
+  transform: translateX(0);
+  opacity: 1;
+  box-shadow: 2px 0 20px rgba(0, 0, 0, 0.45);
+  z-index: 200;
+}
+
