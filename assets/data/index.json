@@ -1,0 +1,187 @@
+{
+  "files": [
+    {
+      "bab": 1,
+      "title": "Bab 1",
+      "description": "",
+      "subbabs": [
+        {
+          "title": "Suling Bambu",
+          "description": "1-34",
+          "file": "./assets/data/bab1-sub1.json"
+        }
+      ]
+    },
+    {
+      "bab": 2,
+      "title": "Bab 2",
+      "description": "",
+      "subbabs": [
+        {
+          "title": "Kisah tentang seorang raja yang jatuh cinta pada seorang pelayan wanita dan membelinya.",
+          "description": "35-54",
+          "file": "./assets/data/bab2-sub1.json"
+        },
+        {
+          "title": "Bagaimana Raja menyadari kelemahan para tabib, dan bagaimana ia menghadapkan wajahnya kepada Tuhan lalu bermimpi berjumpa seorang Wali.",
+          "description": "55-77",
+          "file": "./assets/data/bab2-sub2.json"
+        },
+        {
+          "title": "Memohon kepada Allah, yang adalah Penolong kita, Agar Dia berkenan membantu kita menjaga kendali diri dalam tiap keadaan, Serta menjelaskan segala akibat buruk dan berbahaya dari ketidak-disiplinan jiwa.",
+          "description": "78-92",
+          "file": "./assets/data/bab2-sub3.json"
+        },
+        {
+          "title": "Perjumpaan Sang Raja dengan Tabib Ilahi, Yang kedatangannya telah diisyaratkan dalam mimpi.",
+          "description": "93-101",
+          "file": "./assets/data/bab2-sub4.json"
+        },
+        {
+          "title": "Kisah bagaimana Raja menghantar Sang Tabib ke sisi ranjang sang gadis yang sakit, Agar ia dapat melihat dengan mata kepala sendiri keadaannya.",
+          "description": "102-143",
+          "file": "./assets/data/bab2-sub5.json"
+        },
+        {
+          "title": "Bagaimana Sang Tabib menuntut Raja untuk menyendiri bersama si gadis budak, demi menyingkap penyakitnya.",
+          "description": "144-181",
+          "file": "./assets/data/bab2-sub6.json"
+        },
+        {
+          "title": "Kisah bagaimana Sang Wali (Tabib), setelah menyingkap (penyebab) penyakit itu, memaparkannya di hadapan Sang Raja.",
+          "description": "182-185",
+          "file": "./assets/data/bab2-sub7.json"
+        },
+        {
+          "title": "Kisah bagaimana Raja mengutus para utusan ke Samarkand untuk menjemput Sang Tukang Emas.",
+          "description": "186-221",
+          "file": "./assets/data/bab2-sub8.json"
+        },
+        {
+          "title": "Penjelasan bahwa pembunuhan dan peracunan Tukang Emas itu (didorong) oleh Petunjuk Ilahi, bukan oleh hawa nafsu dan niat jahat.",
+          "description": "222-246",
+          "file": "./assets/data/bab2-sub9.json"
+        }
+      ]
+    },
+    {
+      "bab": 3,
+      "title": "Bab 3",
+      "description": "",
+      "subbabs": [
+        {
+          "title": "Kisah Penjual Sayur dan Burung Beo yang Menumpahkan Minyak",
+          "description": "247-323",
+          "file": "./assets/data/bab3-sub1.json"
+        }
+      ]
+    },
+    {
+      "bab": 4,
+      "title": "Bab 4",
+      "description": "",
+      "subbabs": [
+        {
+          "title": "Kisah Raja Yahudi yang Buta Fanatisme",
+          "description": "324-337",
+          "file": "./assets/data/bab4-sub1.json"
+        },
+        {
+          "title": "Tentang bagaimana sang wazir memberikan petunjuk kepada raja untuk merancang suatu siasat.",
+          "description": "338-362",
+          "file": "./assets/data/bab4-sub2.json"
+        },
+        {
+          "title": "Bagaimana umat Kristen membiarkan diri mereka ditipu oleh wazir.",
+          "description": "363-370",
+          "file": "./assets/data/bab4-sub3.json"
+        },
+        {
+          "title": "Bagaimana Kaum Nasrani Mengikuti Sang Wazir",
+          "description": "371-406",
+          "file": "./assets/data/bab4-sub4.json"
+        },
+        {
+          "title": "Kisah Khalifah bertemu Laila",
+          "description": "407-436",
+          "file": "./assets/data/bab4-sub5.json"
+        },
+        {
+          "title": "Penjelasan tentang Kedengkian Sang Wazir,",
+          "description": "437-445",
+          "file": "./assets/data/bab4-sub6.json"
+        },
+        {
+          "title": "Bagaimana Orang yang Bijak di Kalangan Nasrani Memahami Tipu Daya Sang Wazir",
+          "description": "446-454",
+          "file": "./assets/data/bab4-sub7.json"
+        },
+        {
+          "title": "Bagaimana Raja Mengirim Pesan Rahasia kepada Sang Wazir",
+          "description": "455-457",
+          "file": "./assets/data/bab4-sub8.json"
+        },
+        {
+          "title": "Penjelasan Dua Belas Suku Nasrani",
+          "description": "458-462",
+          "file": "./assets/data/bab4-sub9.json"
+        },
+        {
+          "title": "Bagaimana wazir mengacaukan tata tertib Injil.",
+          "description": "463-499",
+          "file": "./assets/data/bab4-sub10.json"
+        },
+        {
+          "title": "Menunjukkan bagaimana perbedaan ini terletak pada bentuk doktrin, bukan pada hakikat Jalan yang sesungguhnya.",
+          "description": "500-520",
+          "file": "./assets/data/bab4-sub11.json"
+        },
+        {
+          "title": "Menjelaskan bagaimana wazir mengalami kehancuran (karena terlibat)  dalam rencana ini.",
+          "description": "521-548",
+          "file": "./assets/data/bab4-sub12.json"
+        },
+        {
+          "title": "Bagaimana Sang Wazir Memulai Rencana Lain untuk Menyesatkan Kaum(Nasrani)",
+          "description": "549-564",
+          "file": "./assets/data/bab4-sub13.json"
+        },
+        {
+          "title": "Jawaban Wazir Menolak Permintaan Murid",
+          "description": "565-577",
+          "file": "./assets/data/bab4-sub14.json"
+        },
+        {
+          "title": "Permintaan Berulang Murid agar Sang Wazir Mengakhiri Khalwat",
+          "description": "578-590",
+          "file": "./assets/data/bab4-sub15.json"
+        },
+        {
+          "title": "Penolakan Wazir untuk Mengakhiri Khalwatnya",
+          "description": "591-594",
+          "file": "./assets/data/bab4-sub16.json"
+        },
+        {
+          "title": "Bagaimana para murid mengajukan keberatan terhadap wazir yang mengasingkan diri.",
+          "description": "595-643",
+          "file": "./assets/data/bab4-sub17.json"
+        },
+        {
+          "title": "Bagaimana wazir membuat para pengikutnya kehilangan harapan akan kepergiannya dari pengasingan.",
+          "description": "644-649",
+          "file": "./assets/data/bab4-sub18.json"
+        },
+        {
+          "title": "Bagaimana wazir menunjuk masing-masing amir secara terpisah sebagai penggantinya.",
+          "description": "650-661",
+          "file": "./assets/data/bab4-sub19.json"
+        },
+        {
+          "title": "Bagaimana wazir bunuh diri di tempat terpencil.",
+          "description": "662-667",
+          "file": "./assets/data/bab4-sub20.json"
+        }
+      ]
+    }
+  ]
+}
