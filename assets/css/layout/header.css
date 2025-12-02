@@ -1,0 +1,96 @@
+/* ============================================================ 🌌 SUPER PREMIUM HEADER — Ultra Glass + Fade Slide + Gold Glow ============================================================ */ header { display: flex; align-items: center; justify-content: space-between;
+
+padding: 0.55rem 1.1rem; height: 56px;
+
+/* Ultra-Glass VisionOS */ background: rgba(18, 20, 28, 0.38); backdrop-filter: blur(22px) saturate(210%); -webkit-backdrop-filter: blur(22px) saturate(210%);
+
+/* Gold border halus */ border-bottom: 1px solid rgba(255, 220, 150, 0.18);
+
+/* Shadow premium */ box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35), 0 0 22px rgba(220, 180, 120, 0.15);
+
+position: sticky; top: 0; z-index: 120;
+
+color: var(--text);
+
+/* Premium movement */ transform: translateY(-8px); opacity: 0;
+
+animation: headerFadeSlide 0.55s cubic-bezier(0.22, 0.45, 0.15, 1) forwards; }
+
+/* Fade + Slide masuk */ @keyframes headerFadeSlide { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ========================= 
+🔹 Kiri — Judul & Menu ========================= */ 
+.left-header { display: flex; align-items: center; gap: 0.75rem;
+
+/* slight fade-in delay */ opacity: 0; animation: fadeUp 0.6s ease forwards; animation-delay: 0.18s; }
+
+.left-header h1 { font-size: 1.12rem; font-weight: 600; margin: 0; white-space: nowrap; letter-spacing: 0.35px;
+
+background: linear-gradient(90deg, #ffffff, #f5e9d2, #fff9ea); -webkit-background-clip: text; color: transparent; }
+
+/* ========================= 
+🔸 Tombol Menu 
+========================= */
+.menu-btn { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.1);
+
+padding: 0.32rem 0.42rem; font-size: 1.27rem; border-radius: 12px;
+
+color: var(--text); cursor: pointer;
+
+transition: all 0.25s ease; }
+
+.menu-btn:hover, .menu-btn:focus-visible { background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 220, 160, 0.3); transform: translateY(-2px) scale(1.03); box-shadow: 0 4px 14px rgba(255, 240, 200, 0.1); outline: none; }
+
+/* ========================= 🔹 
+Tengah — Search Bar 
+========================= */ 
+.header-center { flex: 1; display: flex; justify-content: center;
+
+opacity: 0; animation: fadeUp 0.6s ease forwards; animation-delay: 0.28s; }
+
+.header-center input { width: 82%; max-width: 260px; padding: 0.48rem 0.8rem;
+
+background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 12px;
+
+color: var(--text); font-size: 0.88rem;
+
+transition: all 0.28s ease, box-shadow 0.3s ease; }
+
+.header-center input::placeholder { color: rgba(255, 255, 255, 0.45); }
+
+.header-center input:focus { background: rgba(255, 255, 255, 0.18); border-color: rgba(255, 220, 160, 0.35); outline: none; box-shadow: 0 0 0 4px rgba(255, 220, 170, 0.15), 0 0 18px rgba(255, 230, 180, 0.18); }
+
+/* ========================= 
+🔹 Kanan — Action Buttons ========================= */ 
+.header-actions { display: flex; align-items: center; gap: 0.65rem;
+
+opacity: 0; animation: fadeUp 0.6s ease forwards; animation-delay: 0.38s; }
+
+.header-actions button { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.1);
+
+padding: 0.32rem; font-size: 1.18rem;
+
+border-radius: 12px; color: var(--text); cursor: pointer;
+
+transition: all 0.25s ease; }
+
+.header-actions button:hover, .header-actions button:focus-visible { background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 220, 160, 0.32); transform: translateY(-2px) scale(1.03); box-shadow: 0 4px 14px rgba(255, 240, 200, 0.12); outline: none; }
+
+/* ========================= 
+✨ FadeUp universal =
+======================== */ 
+@keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ========================= 
+📱 Responsif Super Premium ========================= */ 
+@media (max-width: 480px) { header { height: 50px; padding: 0.4rem 0.6rem; }
+
+.left-header h1 { font-size: 1rem; }
+
+.header-center input { max-width: 160px; } }
+
+@media (min-width: 768px) { header { height: 60px; padding: 0.65rem 1.4rem; }
+
+.left-header h1 { font-size: 1.2rem; }
+
+.header-center input { max-width: 300px; } }

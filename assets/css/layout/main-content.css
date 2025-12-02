@@ -1,0 +1,55 @@
+/* =========================
+✨ Highlight Bait — Blue Ocean Modern Minimalis
+========================= */
+
+/* === Variabel tema === */
+:root {
+  /* Biru laut lembut + glow matte */
+  --highlight-bg: rgba(120, 180, 255, 0.12);        /* Ocean mist */
+  --highlight-border: rgba(140, 200, 255, 0.28);    /* Soft aqua edge */
+  --highlight-shadow: rgba(90, 160, 255, 0.18);     /* Halo biru */
+  --highlight-inner: rgba(160, 210, 255, 0.16);     /* Inner glow */
+}
+
+[data-theme="dark"] {
+  /* Biru dingin elegan untuk dark mode */
+  --highlight-bg: rgba(100, 150, 255, 0.10);      
+  --highlight-border: rgba(150, 190, 255, 0.28); 
+  --highlight-shadow: rgba(70, 120, 230, 0.16); 
+  --highlight-inner: rgba(150, 190, 255, 0.12);
+}
+
+/* === Highlight Elegan === */
+.bait.highlighted {
+  position: relative;
+  background: var(--highlight-bg);
+  border-radius: 0.8rem;
+  border: 1px solid var(--highlight-border);
+
+  /* Shadow biru lembut */
+  box-shadow: 0 4px 14px var(--highlight-shadow);
+
+  backdrop-filter: blur(4px) saturate(160%);
+  -webkit-backdrop-filter: blur(4px) saturate(160%);
+
+  transform: translateY(-2px);
+  transition: all 0.45s cubic-bezier(0.23, 0.07, 0.22, 1);
+  z-index: 2;
+}
+
+/* === Efek lembut tanpa animasi berlebih === */
+.bait.highlighted::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 10px var(--highlight-inner);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+/* === Hover — pancaran biru elegan === */
+.bait.highlighted:hover::after {
+  opacity: 0.55;
+}

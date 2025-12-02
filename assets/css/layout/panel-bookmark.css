@@ -1,0 +1,156 @@
+/* =========================
+📑 PANEL BOOKMARK — versi kaca buram elegan
+========================= */
+.bookmark-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 80%;
+  max-width: 260px;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.37);           
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border-left: 1px solid rgba(150, 210, 255, 0.25); /* biru muda */
+  transform: translateX(100%);
+  transition: transform 0.3s ease, backdrop-filter 0.3s ease;
+  z-index: 400;
+  overflow-y: auto;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.45);
+  padding-bottom: 3rem;
+}
+
+/* Saat dibuka */
+.bookmark-panel.show {
+  transform: translateX(0);
+}
+
+/* Judul panel */
+.bookmark-panel h3 {
+  padding: 0.4rem 1rem;
+  border-bottom: 1px solid rgba(120, 200, 255, 0.25);
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.4px;
+  color: var(--highlight, #7ecbff);
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+/* Daftar bookmark */
+#bookmark-list {
+  padding: 0.4rem;
+  font-size: 0.95rem;
+}
+
+.bookmark-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid rgba(120, 200, 255, 0.12);
+  border-radius: 6px;
+  transition: background 0.25s, color 0.25s;
+  cursor: pointer;
+}
+
+.bookmark-item:hover {
+  background: rgba(120, 200, 255, 0.08);
+  color: var(--accent, #9ad8ff);
+}
+
+/* Tombol hapus */
+.bookmark-item button {
+  background: none;
+  border: none;
+  color: var(--accent, #9ad8ff);
+  font-size: 1rem;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.25s, color 0.25s;
+}
+
+.bookmark-item button:hover {
+  opacity: 1;
+  color: var(--highlight, #7ecbff);
+}
+
+/* =========================
+🌗 Tema terang
+========================= */
+body.light .bookmark-panel {
+  background: rgba(255, 255, 255, 0.7);
+  border-left: 1px solid rgba(100, 150, 255, 0.25);
+  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.1);
+}
+
+body.light .bookmark-panel h3 {
+  color: var(--accent, #78c9ff);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.light .bookmark-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.light .bookmark-item:hover {
+  background: rgba(100, 150, 255, 0.12);
+}
+/* =========================
+🔖 Bookmark Panel
+========================= */
+
+#bookmark-panel {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 320px;
+  height: 100%;
+  background: var(--bg);
+  border-left: 1px solid var(--border);
+  box-shadow: -4px 0 12px rgba(0,0,0,0.3);
+  padding: 1rem;
+  transition: right 0.3s ease;
+  z-index: 1200;
+  overflow-y: auto;
+}
+#bookmark-panel.show { right: 0; }
+
+#bookmark-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 1100;
+}
+#bookmark-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#bookmark-panel h3 {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.4rem;
+}
+
+#bookmark-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.bookmark-item {
+  padding: 0.5rem;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.05);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.bookmark-item:hover {
+  background: rgba(255,255,255,0.1);
+}
