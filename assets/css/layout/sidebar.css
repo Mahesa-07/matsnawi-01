@@ -162,7 +162,7 @@ body.light {
 }
 .subbab-list.show,
 .bait-sublist.show {
-  max-height: 2000px;             /* batas aman */
+  max-height: none;             /* batas aman */
   opacity: 1;
   transform: translateY(0);
 }
