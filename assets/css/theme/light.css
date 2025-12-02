@@ -11,7 +11,7 @@
   cursor: pointer;
   padding: 0.25rem 0.5rem;
   border-radius: 50%;
-  transition: background 0.3s, transform 0.2s;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .theme-toggle:hover {
@@ -19,22 +19,45 @@
   transform: rotate(10deg);
 }
 
-/* Animasi halus saat berubah tema */
-body {
+/* ================================
+🌗 Smooth Dark–Light Theme Transition
+================================ */
+
+html, body {
   transition:
-    background 0.4s ease,
-    color 0.4s ease,
-    border-color 0.4s ease,
-    filter 0.4s ease;
+    background-color 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    filter 0.35s ease;
 }
 
-/* Icon adaptif */
+/* Semua elemen UI */
+*, *::before, *::after {
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+/* Elemen yang tidak boleh ikut transisi */
+.bait.highlighted,
+.toast {
+  transition: none !important;
+}
+
+/* ================================
+🌞/🌙 Icon Togle Adaptif
+================================ */
 .theme-toggle .sun {
   display: none;
 }
+
 body.light .theme-toggle .sun {
   display: inline;
 }
+
 body.light .theme-toggle .moon {
   display: none;
 }

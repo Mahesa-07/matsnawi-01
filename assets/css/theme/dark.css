@@ -1,1 +1,23 @@
-/* Dark theme placeholder (already defined in variables) */
+
+/* 🌙 Tema Gelap (default) */
+/*:root [data-theme="dark"] {
+  --bg: #0f1113;
+  --panel: #151617;
+  --text: #e6e7e8;
+  --accent: #d4c27b;
+  --sub-judul: #d4c27b;
+  --border: rgba(255, 255, 255, 0.08);
+  --fade: rgba(255, 255, 255, 0.03);
+}
+
+/* ☀️ Tema Terang */
+/*:root [data-theme="light"]
+body.light {
+  --bg: #f9f9f9;
+  --panel: #ffffff;
+  --text: #1a1a1a;
+  --accent: #b18f2b;
+  --sub-judul: #b18f2b;
+  --border: rgba(0, 0, 0, 0.1);
+  --fade: rgba(0, 0, 0, 0.04);
+}
