@@ -1,0 +1,189 @@
+/* =======================================================
+📜 BAIT ACTIONS — Haptic Premium
+======================================================= */
+
+.bait-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 0.45rem;
+
+  opacity: 0;
+  animation: fadeInUp 0.45s ease forwards;
+}
+
+.bait-actions button {
+  position: relative;
+  overflow: hidden; /* untuk ripple */
+
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+
+  padding: 6px;
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  color: var(--accent);
+  opacity: 0.92;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.25s ease,
+    opacity 0.25s ease,
+    box-shadow 0.3s ease;
+}
+
+.bait-actions button svg {
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  opacity: 0.92;
+  transition: opacity 0.25s ease;
+}
+
+.bait-actions button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 240, 180, 0.25);
+  opacity: 1;
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+}
+
+.bait-actions button:active {
+  transform: scale(0.90);
+  background: rgba(255, 255, 255, 0.17);
+  border-color: rgba(255, 240, 200, 0.35);
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+}
+
+/* ===== Ripple animation ===== */
+.bait-actions button .ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  background: rgba(255, 255, 255, 0.35);
+  animation: rippleAnim 0.45s ease-out;
+}
+
+@keyframes rippleAnim {
+  to {
+    transform: scale(3.5);
+    opacity: 0;
+  }
+}
+
+/* =======================================================
+📘 Toggle Arrow — Haptic Smooth
+======================================================= */
+.btnDesc {
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  padding: 4px;
+  border-radius: 8px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: background 0.3s ease, transform 0.35s ease;
+}
+
+.btnDesc:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.btnDesc svg {
+  transition: transform 0.45s ease;
+}
+
+.btnDesc.active svg {
+  transform: rotate(90deg);
+}
+
+/* =======================================================
+📄 Description — Premium
+======================================================= */
+/* ===============================
+   📄 Bait Description — Dual Mode
+================================ */
+
+/* 🌞 LIGHT MODE */
+.bait-desc {
+  margin-top: 0.25rem;
+  padding: 0.55rem 0.75rem;
+
+  background: rgba(245, 240, 230, 0.65);  /* Rumi Cream Premium */
+  color: #3a2e1e;
+
+  border-left: 2px solid var(--accent);
+  border-radius: 5px;
+
+  line-height: 1.72;
+  font-size: 0.83rem;
+
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  animation: fadeInUp 0.35s ease;
+
+  opacity: 1;
+  transition: opacity 0.35s ease, max-height 0.35s ease;
+}
+
+/* 🌙 DARK MODE OVERRIDE */
+body:not(.light) .bait-desc {
+  background: rgba(125,125,126,0.55);   /* Premium dark glass */
+  color: #e9e7e3;                       /* Warm ivory text */
+  border-left: 2px solid var(--accent);
+
+  backdrop-filter: blur(8px);           /* Glass premium */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.45);
+}
+
+/* Hidden state */
+.bait-desc.hidden {
+  display: block;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+}
+
+/* Animasi global */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* =======================================================
+🔥 Ripple Premium — Fade + Scale
+======================================================= */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.25;
+  transform: scale(0);
+  animation: rippleEffect 0.45s ease-out;
+  pointer-events: none;
+}
+
+@keyframes rippleEffect {
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* Pastikan tombol punya posisi relatif */
+button, .btnDesc, .bait-actions button {
+  position: relative;
+  overflow: hidden;
+}

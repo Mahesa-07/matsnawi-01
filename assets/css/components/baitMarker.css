@@ -1,0 +1,23 @@
+/* ===============================
+   ✴️ Indikator Bait Diedit — Blue Ocean Elegant
+=================================*/
+.bait-marker {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* Warna biru laut lembut + shimmer elegan */
+.edit-indicator {
+  color: var(--accent, #7fc8ff);         /* soft ocean blue */
+  font-size: 0.65rem;
+  opacity: 0.85;
+  font-style: italic;
+  transition: opacity 0.2s ease, text-shadow 0.25s ease;
+}
+
+/* Hover glow biru */
+.edit-indicator:hover {
+  opacity: 1;
+  text-shadow: 0 0 6px var(--accent, rgba(120, 190, 255, 0.75));
+}

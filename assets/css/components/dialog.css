@@ -1,0 +1,66 @@
+/* =========================
+⚠️ Confirm Dialog
+========================= */
+
+#confirm-dialog {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(5px);
+  z-index: 1400;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+#confirm-dialog.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.confirm-box {
+  background: var(--bg);
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  text-align: center;
+  width: 280px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+  animation: fadeInUp 0.35s ease;
+}
+.confirm-box p {
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+.btn-cancel,
+.btn-confirm {
+  flex: 1;
+  padding: 0.45rem 0.8rem;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.btn-cancel {
+  background: rgba(255,255,255,0.1);
+  color: var(--text);
+}
+.btn-cancel:hover {
+  background: rgba(255,255,255,0.25);
+}
+.btn-confirm {
+  background: crimson;
+  color: #fff;
+}
+.btn-confirm:hover {
+  background: #e44;
+}

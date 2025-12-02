@@ -1,0 +1,20 @@
+footer#footer {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #55a9ff; /* biru laut lembut */
+  border-top: 1px solid var(--border);
+  padding: 1rem 0.5rem;
+  margin-top: 2rem;
+  background: rgba(255, 255, 255, 0.02);
+  line-height: 1.6;
+}
+
+footer#footer .accent {
+  color: var(--accent); /* sudah biru laut dari variabel */
+  font-weight: 600;
+}
+
+footer#footer em {
+  color: var(--text);
+  font-style: italic;
+}
