@@ -80,8 +80,8 @@ transition: all 0.25s ease; }
 .caligrafi{
   font-family: "Great Vibes", "Brush Script MT", "Lucida Handwriting", cursive;
   /* responsif ukuran */
-  font-size: clamp(1.8rem, 6vw, 4rem);
-  line-height: 1;
+  font-size: clamp(2rem, 6vw, 4rem);
+  line-height: 1.2;
   letter-spacing: 0.02em;
   /* warna gradien yang tampak seperti tinta */
   background: linear-gradient(90deg, #2b2b2b 0%, #8b3dff 55%, #d07bff 100%);
