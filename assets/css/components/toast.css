@@ -1,26 +1,31 @@
 /* =========================
-💬 Toast Notification — versi elegan & responsif
+💬 Toast Notification — versi proporsional & solid
 ========================= */
 .toast-message {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -40%);
-  background: var(--panel, #151617);
+  transform: translate(-50%, -45%);
 
-  /* 🔵 warna utama diganti dari emas → biru laut */
+  background: var(--panel, #1e1f20);   /* 🔵 solid, tidak transparan */
   color: var(--accent, #6abaff);
-  border: 1px solid var(--accent, #6abaff);
 
-  border-radius: 12px;
-  padding: 12px 22px;
-  font-size: 1rem;
-  letter-spacing: 0.3px;
+  border: 1px solid var(--accent, #6abaff);
+  border-radius: 14px;
+
+  padding: 10px 28px;                 /* area lebih lega */
+  font-size: 0.85rem;                 /* 🔹 font lebih kecil */
+  line-height: 1.45;
+
+  width: max-content;
+  max-width: 80%;                     /* 🔹 toast lebih lebar tapi responsif */
   text-align: center;
+
   opacity: 0;
   pointer-events: none;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
-  transition: all 0.4s ease;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);   /* bayangan lebih tegas */
+
+  transition: all 0.35s ease-out;
   will-change: transform, opacity;
   z-index: 9999;
 }
@@ -32,15 +37,8 @@
 
 /* 🌗 Mode terang */
 body.light .toast-message {
-  background: rgba(245, 245, 245, 0.95);
+  background: #ffffff;               /* solid white */
   color: #111;
-
-  /* 🔵 border emas → biru muda */
-  border: 1px solid rgba(106, 186, 255, 0.35);
-
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(106, 186, 255, 0.45);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
 }
-
-/* ===============================
-🍞 Toast Notification — Matsnawi Digital
-=============================== */
