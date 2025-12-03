@@ -6,7 +6,7 @@ let activeToast = null;
 /**
  * Menampilkan pesan toast sementara di layar.
  * @param {string} msg - Pesan yang ingin ditampilkan.
- * @param {number} duration - Lama tampil dalam ms (default 3000).
+ * @param {number} duration - Lama tampil dalam ms (default 2000).
  */
 export function showToast(msg, duration = 3000) {
   // Hapus toast sebelumnya kalau masih aktif
